@@ -1,11 +1,21 @@
 package dll
 
 import (
+	"fmt"
+	"os"
+	"runtime"
 	"syscall"
 	"unsafe"
 )
 
-var dll = syscall.NewLazyDLL("vJoyInterface.dll")
+func getvJoyInterfacePath() string {
+	if runtime.GOARCH == "amd64" {
+		return fmt.Sprintf("%s/Program Files/vJoy/x64/vJoyInterface.dll", os.Getenv("SystemDrive"))
+	}
+	return fmt.Sprintf("%s/Program Files/vJoy/x86/vJoyInterface.dll", os.Getenv("SystemDrive"))
+}
+
+var dll = syscall.NewLazyDLL(getvJoyInterfacePath())
 
 var (
 	procGetvJoyVersion            = dll.NewProc("GetvJoyVersion")

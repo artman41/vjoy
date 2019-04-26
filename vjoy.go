@@ -2,7 +2,8 @@ package vjoy
 
 import (
 	"errors"
-	"github.com/tajtiattila/vjoy/dll"
+
+	"github.com/artman41/vjoy/dll"
 )
 
 var (
